@@ -416,3 +416,155 @@ button:active {
         width: 90%;
     }
 }
+
+/*NETWORK*/
+
+.network-status {
+
+    font-size: 13px;
+
+    color: #72ff72;
+
+    margin-right: 20px;
+}
+
+.libs-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.5);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.libs-box {
+
+    width: 420px;
+
+    background: #181b22;
+
+    border: 1px solid #262b35;
+
+    border-radius: 14px;
+
+    padding: 20px;
+}
+
+.libs-header {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+}
+
+#libInput {
+
+    width: 100%;
+
+    padding: 12px;
+
+    background: #0f1115;
+
+    border: 1px solid #262b35;
+
+    color: white;
+
+    border-radius: 8px;
+
+    margin-bottom: 14px;
+}
+
+#installedLibs {
+
+    margin-top: 20px;
+
+    max-height: 200px;
+
+    overflow-y: auto;
+}
+
+.lib-item {
+
+    padding: 10px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.file-row {
+
+    display: flex;
+
+    align-items: center;
+
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.file-item {
+
+    flex: 1;
+}
+
+.file-menu-btn {
+
+    background: transparent;
+
+    border: none;
+
+    color: #888;
+
+    font-size: 18px;
+
+    width: 40px;
+
+    cursor: pointer;
+}
+
+.file-menu-btn:hover {
+
+    color: white;
+
+    background: rgba(255,255,255,0.05);
+}
+
+.mini-menu {
+
+    position: fixed;
+
+    background: #181b22;
+
+    border: 1px solid #262b35;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    z-index: 99999;
+
+    min-width: 140px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.mini-menu-item {
+
+    padding: 12px;
+
+    cursor: pointer;
+
+    transition: 0.15s ease;
+}
+
+.mini-menu-item:hover {
+
+    background: rgba(255,255,255,0.05);
+}

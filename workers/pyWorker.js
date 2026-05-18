@@ -9,6 +9,8 @@ async function initialize() {
 
     pyodide = await loadPyodide();
 
+    await pyodide.loadPackage('micropip');
+
     ready = true;
 
     self.postMessage({
@@ -27,6 +29,20 @@ self.onmessage = async (event) => {
         self.postMessage({
             type: 'error',
             error: 'Runtime still loading...'
+        });
+
+        return;
+    }
+
+    if (data.type === 'install') {
+
+        const micropip = pyodide.pyimport('micropip');
+
+        await micropip.install(data.package);
+
+        self.postMessage({
+            type: 'installed',
+            package: data.package
         });
 
         return;
