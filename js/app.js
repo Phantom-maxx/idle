@@ -7,6 +7,21 @@ import { initializeCommands } from './commands.js';
 import { saveInstalledLib, getInstalledLibs } from './storage.js';
 import { installLibrary } from './runtime.js';
 
+window.currentFile = null;
+window.unsavedChanges = false;
+window.addEventListener(
+    'beforeunload',
+    (e) => {
+
+        if (window.unsavedChanges) {
+
+            e.preventDefault();
+
+            e.returnValue = '';
+        }
+    }
+);
+
 initializeEditor();
 initializeRuntime();
 renderSidebar();
@@ -41,20 +56,57 @@ stopBtn.onclick = () => {
     stopExecution();
 };
 
-saveBtn.onclick = async () => {
-    const name = prompt('File name');
+window.saveCurrentFile = async function () {
 
-    if (!name) {
-        return;
+    let fileName = window.currentFile;
+
+    if (!fileName) {
+
+        fileName = prompt('File name');
+
+        if (!fileName) return;
+
+        window.currentFile = fileName;
     }
 
-    await saveFile(name, editor.getValue());
+    await saveFile(
+        fileName,
+        editor.getValue()
+    );
 
-    appendTerminal('File saved', 'success');
+    window.unsavedChanges = false;
+
+    appendTerminal(
+        `Saved: ${fileName}`,
+        'success'
+    );
+
     renderSidebar();
 };
 
-newBtn.onclick = () => {
+saveBtn.onclick = async () => {
+
+    await window.saveCurrentFile();
+};
+
+newBtn.onclick = async () => {
+
+    if (window.unsavedChanges) {
+
+        const shouldSave = confirm(
+            'Save current file first?'
+        );
+
+        if (shouldSave) {
+
+            await window.saveCurrentFile();
+        }
+    }
+
+    window.currentFile = null;
+
+    window.unsavedChanges = false;
+
     editor.setValue('');
 };
 
@@ -144,3 +196,8 @@ async function renderInstalledLibs() {
         installedLibs.appendChild(div);
     });
 }
+
+editor.on('change', () => {
+
+    window.unsavedChanges = true;
+});
