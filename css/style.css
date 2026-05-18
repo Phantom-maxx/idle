@@ -499,3 +499,72 @@ button:active {
 
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
+
+.file-row {
+
+    display: flex;
+
+    align-items: center;
+
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.file-item {
+
+    flex: 1;
+}
+
+.file-menu-btn {
+
+    background: transparent;
+
+    border: none;
+
+    color: #888;
+
+    font-size: 18px;
+
+    width: 40px;
+
+    cursor: pointer;
+}
+
+.file-menu-btn:hover {
+
+    color: white;
+
+    background: rgba(255,255,255,0.05);
+}
+
+.mini-menu {
+
+    position: fixed;
+
+    background: #181b22;
+
+    border: 1px solid #262b35;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    z-index: 99999;
+
+    min-width: 140px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.mini-menu-item {
+
+    padding: 12px;
+
+    cursor: pointer;
+
+    transition: 0.15s ease;
+}
+
+.mini-menu-item:hover {
+
+    background: rgba(255,255,255,0.05);
+}
