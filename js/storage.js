@@ -7,10 +7,24 @@ const dbPromise = idb.openDB('PyIDE_DB', 1, {
 });
 
 export async function saveFile(name, content) {
-    const db = await dbPromise;
-    await db.put('files', content, name);
-}
 
+    const db = await dbPromise;
+
+    const existing = await db.get('files', name);
+
+    const created =
+        existing?.created || Date.now();
+
+    await db.put(
+        'files',
+        {
+            content,
+            created,
+            updated: Date.now()
+        },
+        name
+    );
+}
 export async function deleteFile(name) {
 
     const db = await dbPromise;
@@ -20,7 +34,8 @@ export async function deleteFile(name) {
 
 export async function loadFile(name) {
     const db = await dbPromise;
-    return db.get('files', name);
+    const file = await db.get('files', name);
+    return file?.content || '';
 }
 
 export async function getAllFiles() {
@@ -49,4 +64,11 @@ export async function getInstalledLibs() {
     const db = await dbPromise;
 
     return await db.get('files', '__libs__') || [];
+}
+
+export async function getFileMeta(name) {
+
+    const db = await dbPromise;
+
+    return await db.get('files', name);
 }
