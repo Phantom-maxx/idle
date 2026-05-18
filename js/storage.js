@@ -11,6 +11,13 @@ export async function saveFile(name, content) {
     await db.put('files', content, name);
 }
 
+export async function deleteFile(name) {
+
+    const db = await dbPromise;
+
+    await db.delete('files', name);
+}
+
 export async function loadFile(name) {
     const db = await dbPromise;
     return db.get('files', name);
