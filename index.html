@@ -68,6 +68,30 @@
            placeholder="Type a command..." />
 </div>
 
+<div class="libs-modal hidden" id="libsModal">
+
+    <div class="libs-box">
+
+        <div class="libs-header">
+            Python Libraries
+        </div>
+
+        <input
+            type="text"
+            id="libInput"
+            placeholder="Enter package name..."
+        />
+
+        <button id="installLibBtn">
+            Install
+        </button>
+
+        <div id="installedLibs"></div>
+
+    </div>
+
+</div>
+    
 <script type="module" src="js/app.js"></script>
 
 </body>
