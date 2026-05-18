@@ -1,11 +1,15 @@
 let pyodide = null;
+let ready = false;
 
 async function initialize() {
+
     importScripts(
         'https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js'
     );
 
     pyodide = await loadPyodide();
+
+    ready = true;
 
     self.postMessage({
         type: 'ready'
@@ -15,21 +19,34 @@ async function initialize() {
 initialize();
 
 self.onmessage = async (event) => {
+
     const data = event.data;
 
+    if (!ready) {
+
+        self.postMessage({
+            type: 'error',
+            error: 'Runtime still loading...'
+        });
+
+        return;
+    }
+
     if (data.type === 'run') {
+
         try {
+
             let output = '';
 
             pyodide.setStdout({
                 batched: (msg) => {
-                    output += msg + '\n';
+                    output += msg + '\\n';
                 }
             });
 
             pyodide.setStderr({
                 batched: (msg) => {
-                    output += msg + '\n';
+                    output += msg + '\\n';
                 }
             });
 
@@ -41,9 +58,10 @@ self.onmessage = async (event) => {
             });
 
         } catch (err) {
+
             self.postMessage({
                 type: 'error',
-                error: err.message
+                error: err.toString()
             });
         }
     }
