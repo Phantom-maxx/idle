@@ -34,6 +34,20 @@ self.onmessage = async (event) => {
         return;
     }
 
+    if (data.type === 'install') {
+
+        const micropip = pyodide.pyimport('micropip');
+
+        await micropip.install(data.package);
+
+        self.postMessage({
+            type: 'installed',
+            package: data.package
+        });
+
+        return;
+    }
+
     if (data.type === 'run') {
 
         try {
