@@ -22,7 +22,10 @@
 <div class="app">
 
     <header class="topbar">
-        <div class="logo">PyIDE</div>
+        <div class="logo-section">
+            <div class="logo">PyIDE</div>
+            <div class="subtitle">Offline Python Workspace</div>
+        </div>
 
         <div class="actions">
             <button id="runBtn">Run</button>
@@ -33,14 +36,30 @@
     </header>
 
     <main class="main-layout">
-        <aside class="sidebar" id="sidebar"></aside>
+        <aside class="sidebar">
+
+            <div class="sidebar-title">
+                FILES
+            </div>
+
+            <div id="sidebar"></div>
+
+        </aside>
 
         <section class="editor-section">
             <textarea id="editor"></textarea>
         </section>
     </main>
 
-    <section class="terminal" id="terminal"></section>
+    <section class="terminal-wrapper">
+
+        <div class="terminal-header">
+            TERMINAL
+        </div>
+
+        <section class="terminal" id="terminal"></section>
+
+    </section>
 </div>
 
 <div id="commandPalette" class="palette hidden">
