@@ -30,6 +30,15 @@ function createWorker() {
             case 'error':
                 appendTerminal(data.error, 'error');
                 break;
+
+            case 'installed':
+
+                appendTerminal(
+                    `Installed: ${data.package}`,
+                    'success'
+                );
+
+                break;
         }
     };
 
@@ -39,6 +48,14 @@ function createWorker() {
             'error'
         );
     };
+}
+
+export function installLibrary(packageName) {
+
+    worker.postMessage({
+        type: 'install',
+        package: packageName
+    });
 }
 
 export function initializeRuntime() {
