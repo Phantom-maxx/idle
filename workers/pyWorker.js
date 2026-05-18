@@ -9,6 +9,8 @@ async function initialize() {
 
     pyodide = await loadPyodide();
 
+    await pyodide.loadPackage('micropip');
+
     ready = true;
 
     self.postMessage({
