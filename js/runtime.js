@@ -1,14 +1,24 @@
 import { appendTerminal } from './terminal.js';
 
-let worker;
+let worker = null;
 
-export function initializeRuntime() {
-    worker = new Worker('../workers/pyWorker.js');
+function createWorker() {
+
+    if (worker) {
+        worker.terminate();
+    }
+
+    worker = new Worker(
+        new URL('../workers/pyWorker.js', import.meta.url),
+        { type: 'classic' }
+    );
 
     worker.onmessage = (event) => {
+
         const data = event.data;
 
         switch (data.type) {
+
             case 'ready':
                 appendTerminal('Python Runtime Ready', 'success');
                 break;
@@ -22,9 +32,25 @@ export function initializeRuntime() {
                 break;
         }
     };
+
+    worker.onerror = (err) => {
+        appendTerminal(
+            'Worker Crash: ' + err.message,
+            'error'
+        );
+    };
+}
+
+export function initializeRuntime() {
+    createWorker();
 }
 
 export function runCode(code) {
+
+    if (!worker) {
+        createWorker();
+    }
+
     worker.postMessage({
         type: 'run',
         code
@@ -32,7 +58,15 @@ export function runCode(code) {
 }
 
 export function stopExecution() {
-    worker.terminate();
-    initializeRuntime();
-    appendTerminal('Execution stopped.', 'error');
+
+    if (worker) {
+        worker.terminate();
+    }
+
+    appendTerminal(
+        'Execution Stopped',
+        'error'
+    );
+
+    createWorker();
 }
