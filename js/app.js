@@ -14,9 +14,18 @@ const stopBtn = document.getElementById('stopBtn');
 const saveBtn = document.getElementById('saveBtn');
 const newBtn = document.getElementById('newBtn');
 
-runBtn.onclick = () => {
+runBtn.onclick = async () => {
+
     clearTerminal();
-    runCode(editor.getValue());
+
+    appendTerminal(
+        'Running Python...',
+        'success'
+    );
+
+    runCode(
+        editor.getValue()
+    );
 };
 
 stopBtn.onclick = () => {
