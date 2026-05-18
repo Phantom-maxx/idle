@@ -1,4 +1,10 @@
-import { getAllFiles, loadFile } from './storage.js';
+import {
+    getAllFiles,
+    loadFile,
+    saveFile,
+    deleteFile
+} from './storage.js';
+
 import { editor } from './editor.js';
 
 const sidebar = document.getElementById('sidebar');
